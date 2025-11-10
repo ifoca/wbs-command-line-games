@@ -16,8 +16,8 @@ if (args.length !== 2) {
 // parse the user input to a number since the cmd line returns it as a string
 const userInput = Number(args[1]);
 
+// convert all the characters to lower case to avoid case insensitivity
 const plaintext = args[0].toLowerCase();
-console.log(plaintext);
 
 // make sure the input is a valid number between -26 and 26
 function checkUserInput() {
@@ -62,24 +62,22 @@ function createNewAlphabet() {
 function encipherText(text) {
   let encipheredText = [];
   for (let i = 0; i < text.length; i++) {
+    // check if the char exists in the alphabet, returns -1 if it is not
     if (alphabet.indexOf(text[i]) !== -1) {
-      console.info('I am logging the char from the if');
-      const mapped = alphabet.indexOf(text[i]);
-      console.log(newAlphabet[mapped]);
-      encipheredText.push(newAlphabet[mapped]);
-      console.log(encipheredText);
+      // maps the letters between the 2 alphabets
+      const mappedIndex = alphabet.indexOf(text[i]);
+      // pushes the char from the new alphabet
+      encipheredText.push(newAlphabet[mappedIndex]);
     } else {
-      console.log('Char not found in the alphabet: ', text[i]);
+      // if char not found in the original alphabet, pushes the char as it is
       encipheredText.push(text[i]);
     }
   }
-  console.log(encipheredText.join(''));
-  return encipheredText.join('');
+  return console.log(encipheredText.join(''));
 }
 
 if (checkUserInput()) {
   if (createNewAlphabet()) {
-    // console.log(newAlphabet);
     encipherText(plaintext);
   } else {
     console.log('New alphabet creation failed');
